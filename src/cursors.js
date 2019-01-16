@@ -1,5 +1,5 @@
 import rangeFix from 'rangefix';
-import tinycolor from 'tinycolor2';
+// import tinycolor from 'tinycolor2';
 
 var DEFAULTS = {
   template: [
@@ -199,12 +199,15 @@ QuillCursors.prototype._updateCursor = function(cursor) {
     startLeaf[1] < 0 || endLeaf[1] < 0 ||
     !startLeaf[0].domNode || !endLeaf[0].domNode) {
 
+    console.warn({ startLeaf, endLeaf });
     console.warn('[quill-cursors] A cursor couldn\'t be updated (ID ' + cursor.userId +'), hiding.');
 
     this._hideCursor(cursor.userId);
 
     return;
   }
+
+  // console.log('_updateCursor', {startLeaf, endLeaf});
 
   range.setStart(startLeaf[0].domNode, startLeaf[1]);
   range.setEnd(endLeaf[0].domNode, endLeaf[1]);
@@ -227,6 +230,7 @@ QuillCursors.prototype._updateCaret = function(cursor, leaf) {
   }
 
   rect = this.quill.getBounds(index);
+  // console.log('_updateCaret', {cursor, rect});
 
   cursor.caretEl.style.top = (rect.top) + 'px';
   cursor.caretEl.style.left = (rect.left) + 'px';
@@ -245,7 +249,7 @@ QuillCursors.prototype._updateSelection = function(cursor, rects, containerRect)
     selectionBlockEl.style.left = (rect.left - containerRect.left) + 'px';
     selectionBlockEl.style.width = rect.width + 'px';
     selectionBlockEl.style.height = rect.height + 'px';
-    selectionBlockEl.style.backgroundColor = tinycolor(cursor.color).setAlpha(0.3).toString();
+    // selectionBlockEl.style.backgroundColor = tinycolor(cursor.color).setAlpha(0.3).toString();
 
     return selectionBlockEl;
   }
