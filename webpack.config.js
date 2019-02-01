@@ -5,9 +5,14 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var moduleBundle = {
 
   entry: {
-    'quill-cursors': ['./src/cursors.js', './src/cursors.scss'],
+    'quill-cursors': ['./src/cursors.js'],
     'quill-cursors.min': ['./src/cursors.js'],
   },
+
+  // entry: {
+  //   'quill-cursors': ['./src/cursors.js', './src/cursors.scss'],
+  //   'quill-cursors.min': ['./src/cursors.js'],
+  // },
 
   output: {
     filename: '[name].js',
@@ -29,7 +34,10 @@ var moduleBundle = {
   module: {
     rules: [{
       test: /\.scss$/,
-      loader: ExtractTextPlugin.extract(['css-loader', 'sass-loader'])
+        use: ExtractTextPlugin.extract({ 
+          fallback:'style-loader',
+          use:['css-loader','sass-loader'],
+      })
     }]
   },
 
@@ -38,7 +46,7 @@ var moduleBundle = {
       test: /\.min\.js$/
     }),
     new ExtractTextPlugin({ // define where to save the file
-      filename: '[name].css'
+      filename: 'quill-cursors.css'
     })
   ],
 
