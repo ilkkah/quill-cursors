@@ -207,14 +207,18 @@ QuillCursors.prototype._updateCursor = function(cursor) {
     return;
   }
 
-  // console.log('_updateCursor', {startLeaf, endLeaf});
+  try {
+    range.setStart(startLeaf[0].domNode, startLeaf[1]);
+    range.setEnd(endLeaf[0].domNode, endLeaf[1]);
+    rects = rangeFix.getClientRects(range);
 
-  range.setStart(startLeaf[0].domNode, startLeaf[1]);
-  range.setEnd(endLeaf[0].domNode, endLeaf[1]);
-  rects = rangeFix.getClientRects(range);
-
-  this._updateCaret(cursor, endLeaf);
-  this._updateSelection(cursor, rects, containerRect);
+    this._updateCaret(cursor, endLeaf);
+    this._updateSelection(cursor, rects, containerRect);
+  }
+  catch (err) {
+    console.log({startLeaf, endLeaf});
+    console.log(err);
+  }
 };
 
 QuillCursors.prototype._updateCaret = function(cursor, leaf) {
