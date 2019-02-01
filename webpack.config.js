@@ -5,7 +5,7 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var moduleBundle = {
 
   entry: {
-    'quill-cursors': ['./src/cursors.js'],
+    'quill-cursors': ['./src/cursors.js', './src/cursors.scss'],
     'quill-cursors.min': ['./src/cursors.js'],
   },
 
